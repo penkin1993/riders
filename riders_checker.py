@@ -9,7 +9,7 @@ from typing import Union, Dict, Tuple, Iterable
 # TODO: Init (вычисление лоса) каждого курьера по отдельности
 
 
-class CouriersIterator:
+class RidersIterator:
     """
     TODO: Docstring
     """
