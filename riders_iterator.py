@@ -18,13 +18,21 @@ class RidersCombinationsStorage:
         :param working_time_constraint: minimum number of hour for a courier
         :param id_rider2time: information with courier id and pair (start_hour, end_hour)
         """
+        self.__ids = None
         self._np_rider2time_borders, self._rider2time_borders = self.__rider_combinations_init(id_rider2time,
                                                                                                working_duration,
                                                                                                working_time_constraint)
+
         # Храним границы в self._rider2time_borders:
         # [((id1_border), (id2_border), (id3_border), (id4_border)), (...), (....)].
-        #
-        # Сразу понятно что чему соответствует !!!!!
+
+    @property
+    def ids(self):
+        return self.__ids
+
+    @ids.setter
+    def ids(self, value):
+        raise Exception("You can not change this field")
 
     @staticmethod
     def __get_time_variants(start_hour: int, end_hour: int,
@@ -81,11 +89,12 @@ class RidersCombinationsStorage:
             np_constraints_intervals, constraints_intervals = (self.__add_rider(*id_rider2time[id_rider],
                                                                                 working_duration,
                                                                                 working_time_constraint))
-
             # проверка что у данный курьер при ограничения на время сможет работать
             if np_constraints_intervals.shape[0] != 0:
                 np_rider2time_borders[(id_rider,)], rider2time_borders[(id_rider,)] = (
                     np_constraints_intervals, constraints_intervals)
+
+        self.__ids = list(rider2time_borders.keys())
 
         return np_rider2time_borders, rider2time_borders
 

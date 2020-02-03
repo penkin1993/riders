@@ -3,7 +3,7 @@ import numpy as np
 
 from typing import Union, Dict, Tuple, Iterable
 
-from collections import deque
+from queue import Queue
 
 from riders_iterator import RidersCombinationsStorage
 
@@ -18,18 +18,19 @@ class RidersIterator:
     TODO: Docstring
     """
     def __init__(self, riders_combinations_storage):
-        self._combination_deque = deque()
-        self._riders_combinations_storage = riders_combinations_storage
+        """
+        :param riders_combinations_storage:
+        """
+        self.__combination_deque = Queue()  # очередь для обхода riders
+        self.__riders_combinations_storage = riders_combinations_storage
 
-
-
+        self.__ids = None  # все riders
+        self.__combinations = None  # Наборы, которые нет смысла проверять
+        self.combination_deque_init()
 
     def combination_deque_init(self):
-        pass  # инициализация исходной очереди
-
-
-
-
+        self.__ids = frozenset(self.__riders_combinations_storage.ids)
+        [self.__combination_deque.put(id) for id in self.__ids]
 
     def __next__(self):  # возвращает следующий элемент из очереди
         pass
