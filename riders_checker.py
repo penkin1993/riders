@@ -5,7 +5,7 @@ from typing import Union, Dict, Tuple, Iterable
 
 from queue import Queue
 
-from riders_iterator import RidersCombinationsStorage
+from riders_combination_storage import RidersCombinationsStorage
 from combinations_checker import CombinationsChecker
 
 
@@ -28,7 +28,7 @@ class RidersIterator:
 
     def __combination_deque_init(self):
         self.__ids = frozenset(self.__riders_combinations_storage.ids)
-        [(self.__combination_deque.put(id), ) for id in self.__ids]
+        [(self.__combination_deque.put(id), ()) for id in self.__ids]
 
 
 
@@ -49,18 +49,35 @@ class RidersIterator:
 
 
 
-    def __call__(self):  # точка входа в программу. Запуск основного цикла
+    def __call__(self):
         while not self.__combination_deque.empty():
-            combination = self.__combination_deque.get()  # tuple
-
-            # TODO: Нужна матрица (сумма из __riders_combinations_storage) и добавить с него тривальный случай
+            combination = self.__combination_deque.get()
+            # получение матрицы вохможных графиков курьеров для последующей проверки
+            intervals_matrix = self.__riders_combinations_storage.get_combinations(*combination)
 
             # 1. Проверка данной комбинации и отсеивание тех, которые не подходят
-            row_indexes, time_borders = self.__combinations_checker(combination)
+            row_indexes, time_borders = self.__combinations_checker(intervals_matrix)
+
+
+
+
+
+
 
             # 2. добавлние в очередь
 
-            # 3. обновлять словарь при необходимости
+
+
+
+
+
+
+
+            # 3. обновлять словарь при необходимости. TODO На первой итерации не обновлять ??????
+
+
+
+
 
 
         # return возврат лучшей комбинации

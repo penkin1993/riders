@@ -6,7 +6,7 @@ from collections import OrderedDict, defaultdict
 
 
 class RidersCombinationsStorage:
-    #  Этот класс скорее самой структуры, которая хранить комбинацц и результаты
+    #  Этот класс скорее самой структуры, которая хранить комбинации
     """
     TODO: Docstring
     """
@@ -104,23 +104,24 @@ class RidersCombinationsStorage:
         :param key2:
         :return:
         """
+        assert len(key1) | len(key2)
+
+        if len(key1) == 0:
+            return self._np_rider2time_borders[key2]
+
+        if len(key2) == 0:
+            return self._np_rider2time_borders[key1]
+
         intervals1 = self._np_rider2time_borders[key1]
         intervals2 = self._np_rider2time_borders[key2]
 
-        assert (intervals1.shape[0] != 0) & (intervals2.shape[0] != 0)
-
-        # TODO: Случай когда один ключ нулевой. Прокинуть его же в init
-
-
-
-
-        union_intervals = (intervals1[:, None, :] + intervals2).reshape(-1, intervals1.shape[1])
-        return union_intervals
+        intervals_matrix = (intervals1[:, None, :] + intervals2).reshape(-1, intervals1.shape[1])
+        return intervals_matrix
 
     def set_combinations(self, key1: Tuple, key2: Tuple,
-                         row_indexes: Iterable, time_borders: np.ndarray):
+                         row_indexes: Iterable, intervals_matrix: np.ndarray):
         new_key = (*key1, *key2)
-        self._np_rider2time_borders[new_key] = time_borders
+        self._np_rider2time_borders[new_key] = intervals_matrix
         self._rider2time_borders[new_key] = []
 
         new_combinations = list(itertools.product(self._rider2time_borders[key1],
