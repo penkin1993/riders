@@ -6,48 +6,40 @@ from typing import Union, Dict, Tuple, Iterable
 from queue import Queue
 
 from riders_iterator import RidersCombinationsStorage
-
-
-# TODO: Защита от рассчета дважды (id1 id2) (id2 id1)
-
-# TODO: Init (вычисление лоса) каждого курьера по отдельности
+from combinations_checker import CombinationsChecker
 
 
 class RidersIterator:
     """
     TODO: Docstring
     """
-    def __init__(self, riders_combinations_storage):
+    def __init__(self, riders_combinations_storage: RidersCombinationsStorage,
+                 combinations_checker: CombinationsChecker):
         """
         :param riders_combinations_storage:
         """
         self.__combination_deque = Queue()  # очередь для обхода riders
         self.__riders_combinations_storage = riders_combinations_storage
+        self.__combinations_checker = combinations_checker
 
         self.__ids = None  # все riders
         self.__combinations = None  # Наборы, которые нет смысла проверять
-        self.combination_deque_init()
+        self.__combination_deque_init()
 
-    def combination_deque_init(self):
+    def __combination_deque_init(self):
         self.__ids = frozenset(self.__riders_combinations_storage.ids)
-        [self.__combination_deque.put(id) for id in self.__ids]
+        [(self.__combination_deque.put(id), ) for id in self.__ids]
 
-    def __next__(self):  # возвращает следующий элемент из очереди
+
+
+
+    def add_combinations(self):  # добавлеяет элмент в очередь и в self._riders_combinations_storage
         pass
 
+        # инвариантность порядка (r1, r2, r3) & (r3, r2, r1)
 
 
-
-
-
-    def add(self):  # добавлеяет элмент в очередь и в self._riders_combinations_storage
-        pass
-
-
-
-
-    def __call__(self): # точка входа в программу. Запуск основного цикла
-        pass
+        # если (r1, r2, r3) не подошел  то и (r1, r2, r4, r3) не подойдет !!!
 
 
 
@@ -55,21 +47,35 @@ class RidersIterator:
 
 
 
-class CombinationsChecker:
-    """
-    Класс для проверки комбинаций на удовлеторениме требований !!!!
-    """
-    # Хранить лучший набор здесь ???
-
-    def __init__(self):
-        pass
-
-    def __call__(self, *args, **kwargs):  # Проверка подходящего и решение помещать в очередь или нет
-        pass
 
 
-    # def паралельное вычисление наборов, выбор всех по два или три и запуска их параллельно ???
+    def __call__(self):  # точка входа в программу. Запуск основного цикла
+        while not self.__combination_deque.empty():
+            combination = self.__combination_deque.get()  # tuple
 
+            # TODO: Нужна матрица (сумма из __riders_combinations_storage) и добавить с него тривальный случай
+
+            # 1. Проверка данной комбинации и отсеивание тех, которые не подходят
+            row_indexes, time_borders = self.__combinations_checker(combination)
+
+            # 2. добавлние в очередь
+
+            # 3. обновлять словарь при необходимости
+
+
+        # return возврат лучшей комбинации
+
+
+
+
+
+
+
+
+
+
+
+    # TODO: Как рабоатет очередь. Можно ли дешево сделать мультитпроцессинг ???
 
 
 

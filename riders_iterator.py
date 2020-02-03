@@ -22,7 +22,6 @@ class RidersCombinationsStorage:
         self._np_rider2time_borders, self._rider2time_borders = self.__rider_combinations_init(id_rider2time,
                                                                                                working_duration,
                                                                                                working_time_constraint)
-
         # Храним границы в self._rider2time_borders:
         # [((id1_border), (id2_border), (id3_border), (id4_border)), (...), (....)].
 
@@ -108,8 +107,12 @@ class RidersCombinationsStorage:
         intervals1 = self._np_rider2time_borders[key1]
         intervals2 = self._np_rider2time_borders[key2]
 
-        assert intervals1.shape[0] != 0
-        assert intervals2.shape[0] != 0
+        assert (intervals1.shape[0] != 0) & (intervals2.shape[0] != 0)
+
+        # TODO: Случай когда один ключ нулевой. Прокинуть его же в init
+
+
+
 
         union_intervals = (intervals1[:, None, :] + intervals2).reshape(-1, intervals1.shape[1])
         return union_intervals
@@ -125,15 +128,6 @@ class RidersCombinationsStorage:
 
         [self._rider2time_borders[new_key].append((*new_combinations[ind][0],
                                                    *new_combinations[ind][1])) for ind in row_indexes]
-
-    # TODO: Порядок ключей в словаре
-
-
-
-    # TODO: Как хранить ключи, чтобы не было повторений ????
-
-
-
 
     # TODO: Добавить тесты !!!!
 
