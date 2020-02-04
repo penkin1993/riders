@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2ce4726d-bcc2-4ae9-84c9-39d5b2202eea" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/EDA-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/EDA-checkpoint.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EDA.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/EDA.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/riders_combination_storage.py" beforeDir="false" afterPath="$PROJECT_DIR$/riders_combination_storage.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/riders_iterator.py" beforeDir="false" afterPath="$PROJECT_DIR$/riders_iterator.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,8 +17,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/riders_iterator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="584">
-              <caret line="69" selection-start-line="69" selection-end-line="69" />
+            <state relative-caret-position="252">
+              <caret line="42" column="60" selection-start-line="42" selection-start-column="60" selection-end-line="42" selection-end-column="60" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -68,7 +66,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="53" />
     <option name="y" value="23" />
-    <option name="width" value="945" />
+    <option name="width" value="875" />
     <option name="height" value="1027" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -132,15 +130,15 @@
       <updated>1580489143147</updated>
       <workItem from="1580489145443" duration="13491000" />
       <workItem from="1580717121812" duration="17150000" />
-      <workItem from="1580808015452" duration="19698000" />
+      <workItem from="1580808015452" duration="20107000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50339000" />
+    <option name="totallyTimeSpent" value="50748000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="53" y="23" width="945" height="1027" extended-state="0" />
+    <frame x="53" y="23" width="875" height="1027" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.3982684" />
@@ -268,8 +266,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/riders_iterator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="584">
-          <caret line="69" selection-start-line="69" selection-end-line="69" />
+        <state relative-caret-position="252">
+          <caret line="42" column="60" selection-start-line="42" selection-start-column="60" selection-end-line="42" selection-end-column="60" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
           </folding>

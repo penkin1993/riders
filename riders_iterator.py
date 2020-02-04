@@ -48,28 +48,16 @@ class RidersIterator:
         :param id:
         :return:
         """
-        id_ = (*id[0], *id[1])
-        poss_ids = self.__ids - set(id_)  # Все возможные продолжения
+        id = (*id[0], *id[1])
+        poss_ids = self.__ids - set(id)  # Все возможные продолжения
         for poss_id in poss_ids:
-            add_id = set(id_)
+            add_id = set(id)
             add_id.add(poss_id)
-            add_id = frozenset(add_id)  # TODO: ref
-
-
-
+            add_id = frozenset(add_id)
             if add_id not in self.__checked_combinations:
                 # проверка инвариантности порядка (r1, r2, r3) & (r3, r2, r1)
                 self.__checked_combinations.add(add_id)
-                self.__combinations_queue.put((id, poss_id))
-
-
-
-
-
-
-
-
-
+                self.__combinations_queue.put((id, (poss_id, )))
 
     def __call__(self):
         while not self.__combinations_queue.empty():
