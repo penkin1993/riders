@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2ce4726d-bcc2-4ae9-84c9-39d5b2202eea" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/EDA-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/EDA-checkpoint.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EDA.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/EDA.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/combinations_checker.py" beforeDir="false" afterPath="$PROJECT_DIR$/combinations_checker.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/riders_checker.py" beforeDir="false" afterPath="$PROJECT_DIR$/riders_checker.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/riders_combination_storage.py" beforeDir="false" afterPath="$PROJECT_DIR$/riders_combination_storage.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/riders_checker.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
+            <state relative-caret-position="382">
+              <caret line="83" column="40" selection-start-line="83" selection-start-column="40" selection-end-line="83" selection-end-column="40" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -32,8 +30,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/riders_combination_storage.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="555">
-              <caret line="137" column="37" selection-start-line="137" selection-start-column="37" selection-end-line="137" selection-end-column="37" />
+            <state relative-caret-position="495">
+              <caret line="133" column="31" lean-forward="true" selection-start-line="133" selection-start-column="31" selection-end-line="133" selection-end-column="31" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -44,8 +42,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/combinations_checker.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="30" selection-start-line="30" selection-end-line="30" />
+            <state relative-caret-position="225">
+              <caret line="15" column="72" selection-start-line="15" selection-start-column="72" selection-end-line="15" selection-end-column="72" />
+              <folding>
+                <element signature="e#1#19#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -82,8 +83,8 @@
         <option value="$PROJECT_DIR$/couriers_iterator.py" />
         <option value="$PROJECT_DIR$/couriers_checker.py" />
         <option value="$PROJECT_DIR$/riders_iterator.py" />
-        <option value="$PROJECT_DIR$/combinations_checker.py" />
         <option value="$PROJECT_DIR$/riders_combination_storage.py" />
+        <option value="$PROJECT_DIR$/combinations_checker.py" />
         <option value="$PROJECT_DIR$/riders_checker.py" />
       </list>
     </option>
@@ -150,12 +151,12 @@
       <updated>1580489143147</updated>
       <workItem from="1580489145443" duration="13491000" />
       <workItem from="1580717121812" duration="17150000" />
-      <workItem from="1580808015452" duration="1680000" />
+      <workItem from="1580808015452" duration="7887000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32321000" />
+    <option name="totallyTimeSpent" value="38528000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="53" y="23" width="1627" height="1027" extended-state="6" />
@@ -239,15 +240,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/combinations_checker.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" selection-start-line="30" selection-end-line="30" />
+        <state relative-caret-position="225">
+          <caret line="15" column="72" selection-start-line="15" selection-start-column="72" selection-end-line="15" selection-end-column="72" />
+          <folding>
+            <element signature="e#1#19#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/riders_combination_storage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="137" column="37" selection-start-line="137" selection-start-column="37" selection-end-line="137" selection-end-column="37" />
+        <state relative-caret-position="495">
+          <caret line="133" column="31" lean-forward="true" selection-start-line="133" selection-start-column="31" selection-end-line="133" selection-end-column="31" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
           </folding>
@@ -256,8 +260,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/riders_checker.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
+        <state relative-caret-position="382">
+          <caret line="83" column="40" selection-start-line="83" selection-start-column="40" selection-end-line="83" selection-end-column="40" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
           </folding>

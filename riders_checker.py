@@ -23,24 +23,47 @@ class RidersIterator:
         self.__combinations_checker = combinations_checker
 
         self.__ids = None  # все riders
-        self.__combinations = None  # Наборы, которые нет смысла проверять
+        self.__checked_combinations = set()  # Наборы, которые нет смысла проверять
         self.__combination_deque_init()
 
     def __combination_deque_init(self):
         self.__ids = frozenset(self.__riders_combinations_storage.ids)
         [(self.__combination_deque.put(id), ()) for id in self.__ids]
 
-    def put_combinations(self, id: Tuple):  # добавлеяет элмент в очередь и в self._riders_combinations_storage
+    def __add_in_checked_combinations(self, id: Tuple):
         """
         :param id:
         :return:
         """
-        pass
-
-        # инвариантность порядка (r1, r2, r3) & (r3, r2, r1)
-
-
         # если (r1, r2, r3) не подошел  то и (r1, r2, r4, r3) не подойдет !!!
+        # self.__checked_combinations.add(id)  # уже есть
+        id = frozenset(id)
+        rest_ids = self.__ids - id  # дополнение возможных ключей к текущему
+        for i in range(len(rest_ids)):
+            for comb in (itertools.combinations(rest_ids, i)):
+                self.__checked_combinations.add(frozenset(*id, *comb))
+
+
+
+
+
+
+
+
+    def put_combinations(self, id: Tuple):  # добавлеяет элемент в очередь и в self._riders_combinations_storage
+        """
+        :param id:
+        :return:
+        """
+        id_ = frozenset(id)
+        poss_ids = self.__ids - id_
+        for poss_id in poss_ids:
+            add_id = poss_id + id_
+            if add_id not in self.__checked_combinations:
+                # проверка инвариантности порядка (r1, r2, r3) & (r3, r2, r1)
+                self.__checked_combinations.add(add_id)
+                self.__combinations_checker.put((id, poss_id))
+
 
 
 
@@ -55,15 +78,30 @@ class RidersIterator:
             intervals_matrix = self.__riders_combinations_storage.get_combinations(*pair_id)
 
             # 1. Проверка данной комбинации и отсеивание тех, которые не подходят
-            row_indexes, time_borders = self.__combinations_checker(intervals_matrix)
+            row_indexes, intervals_matrix, loss = self.__combinations_checker(intervals_matrix)
+
+
+            # TODO: Где хранить loss ???
 
             # 2. добавлние в очередь
             new_id = (*pair_id[0], *pair_id[1])
-            self.put_combinations(new_id)
+            if len(row_indexes) == 0:
+                self.__add_in_checked_combinations(new_id)
+            else:
+                self.put_combinations(new_id)
 
             # 3. Обновить словарь
-            self.__riders_combinations_storage.set_combinations(pair_id[0], pair_id[1], row_indexes, time_borders)
+            self.__riders_combinations_storage.set_combinations(pair_id[0], pair_id[1], row_indexes, intervals_matrix)
 
         # return возврат лучшей комбинации
 
     # Дешево сделать мультитпроцессинг на данной очереди ???
+
+
+
+
+
+
+
+
+    # TODO: Добавить тесты !!!!
