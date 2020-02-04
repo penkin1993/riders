@@ -23,7 +23,7 @@ class RidersCombinationsStorage:
                                                                                                working_time_constraint)
         # Храним границы в self._rider2time_borders:
         # [((id1_border), (id2_border), (id3_border), (id4_border)), (...), (....)].
-        self.__best_combination = ((), np.inf)  # TODO: Переписать через property
+        self.__best_combination = ((), -1, np.inf)  # TODO: Переписать через property
 
     @property
     def best_combination(self):
@@ -152,5 +152,4 @@ class RidersCombinationsStorage:
         [self._rider2time_borders[new_id].append((*new_combinations[ind][0],
                                                    *new_combinations[ind][1])) for ind in row_indexes]
 
-    # TODO: Добавить тесты !!!!
 

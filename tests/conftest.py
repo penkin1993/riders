@@ -6,10 +6,11 @@ import numpy as np
 sys.path.append("..")
 
 from riders_combination_storage import RidersCombinationsStorage
+from riders_checker import CombinationsChecker
 
 
 @pytest.fixture(scope="module")
-def rcs(request):
+def rcs():
     rcs_object = RidersCombinationsStorage({"a": (2, 3), "b": (2, 15), "c": (0, 7), "d": (13, 16), "e": (14, 16)})
 
     array = rcs_object.get_combinations(("d",), ("c",))
@@ -25,5 +26,15 @@ def rcs(request):
     yield rcs_object
 
     del rcs_object
+
+
+@pytest.fixture(scope="module")
+def rc():
+    rider_requirements = np.array([2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0])
+    comb_check = CombinationsChecker(rider_requirements)
+
+    yield comb_check
+
+    del comb_check
 
 

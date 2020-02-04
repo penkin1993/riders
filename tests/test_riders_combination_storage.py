@@ -1,8 +1,4 @@
-import sys
-
 import numpy as np
-
-sys.path.append("..")
 
 
 def test_rcs_get_combinations_and_set_combinations_simple(rcs):
