@@ -80,25 +80,21 @@ class RidersIterator:
             # 1. Проверка данной комбинации и отсеивание тех, которые не подходят
             row_indexes, intervals_matrix, loss = self.__combinations_checker(intervals_matrix)
 
-
-            # TODO: Где хранить loss ???
-
             # 2. добавлние в очередь
             new_id = (*pair_id[0], *pair_id[1])
             if len(row_indexes) == 0:
                 self.__add_in_checked_combinations(new_id)
             else:
                 self.put_combinations(new_id)
+                # обновть миниум
+                self.__riders_combinations_storage.best_combination = ((*pair_id), row_indexes, loss)
 
             # 3. Обновить словарь
             self.__riders_combinations_storage.set_combinations(pair_id[0], pair_id[1], row_indexes, intervals_matrix)
 
-        # return возврат лучшей комбинации
+        return self.__riders_combinations_storage.best_combination
 
     # Дешево сделать мультитпроцессинг на данной очереди ???
-
-
-
 
 
 

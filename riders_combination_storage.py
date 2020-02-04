@@ -2,7 +2,6 @@ import itertools
 import numpy as np
 
 from typing import Dict, Tuple, Iterable, List, Hashable, Union, Set
-from collections import OrderedDict, defaultdict
 
 
 class RidersCombinationsStorage:
@@ -24,6 +23,19 @@ class RidersCombinationsStorage:
                                                                                                working_time_constraint)
         # Храним границы в self._rider2time_borders:
         # [((id1_border), (id2_border), (id3_border), (id4_border)), (...), (....)].
+        self.__best_combination = ((), np.inf)  # TODO: Переписать через property
+
+    @property
+    def best_combination(self):
+        return (self.__best_combination[0],
+                self._rider2time_borders[self.__best_combination[0]][self.__best_combination[1]],  # лучшая комбинация
+                self.__best_combination[1])  # loss
+
+    @best_combination.setter
+    def best_combination(self, value: Tuple[Tuple, np.ndarray, np.ndarray]):
+        min_loss = min(value[2])
+        if self.__best_combination[2] > min_loss:
+            self.__best_combination = value[0], value[1][np.argmin(value[2])], min_loss
 
     @property
     def ids(self):
@@ -75,7 +87,7 @@ class RidersCombinationsStorage:
 
     def __rider_combinations_init(self, id_rider2time: Dict, working_duration: int, working_time_constraint: int):
         """
-        Инициализаиця первичныз массивов
+        Инициализаиця первичных массивов
         :param id_rider2time:
         :param working_duration:
         :param working_time_constraint:
@@ -119,7 +131,7 @@ class RidersCombinationsStorage:
         return intervals_matrix
 
     def set_combinations(self, id1: Tuple, id2: Tuple,
-                         row_indexes: Iterable, intervals_matrix: np.ndarray):
+                         row_indexes: np.ndarray, intervals_matrix: np.ndarray):
         """
         :param id1:
         :param id2:

@@ -18,7 +18,7 @@ class CombinationsChecker:
         :param intervals_matrix:
         :return:
         """
-        assert intervals_matrix.shape[0] == self.__riders_in_zones.shape[0]
+        assert intervals_matrix.shape[1] == self.__riders_in_zones.shape[0]
 
         diff = self.__riders_in_zones - intervals_matrix
         min_diff = np.min(diff, axis=1)
@@ -26,3 +26,6 @@ class CombinationsChecker:
         checked_intervals_matrix = intervals_matrix[row_indexes, :]
         loss = np.sum(diff[row_indexes, :], axis=1)
         return row_indexes, checked_intervals_matrix, loss  # индексы, проверенная матрца, лосс в каждом случае
+
+
+# TODO: Добавить тесты
