@@ -61,6 +61,11 @@ class RidersIterator:
     def __call__(self):
         while not self.__combinations_queue.empty():
             pair_id = self.__combinations_queue.get()
+            print(len(pair_id[0]))
+
+
+
+
             # получение матрицы вохможных графиков курьеров для последующей проверки
             intervals_matrix = self.__riders_combinations_storage.get_combinations(*pair_id)
 

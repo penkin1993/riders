@@ -4,7 +4,6 @@
     <list default="true" id="2ce4726d-bcc2-4ae9-84c9-39d5b2202eea" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/EDA-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/EDA-checkpoint.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EDA.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/EDA.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/riders_combination_storage.py" beforeDir="false" afterPath="$PROJECT_DIR$/riders_combination_storage.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/riders_iterator.py" beforeDir="false" afterPath="$PROJECT_DIR$/riders_iterator.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/riders_iterator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="58" column="31" lean-forward="true" selection-start-line="58" selection-start-column="31" selection-end-line="58" selection-end-column="31" />
+            <state relative-caret-position="285">
+              <caret line="63" column="31" selection-start-line="63" selection-start-column="31" selection-end-line="63" selection-end-column="31" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -48,11 +47,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/riders_combination_storage.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="31" column="41" selection-start-line="31" selection-start-column="41" selection-end-line="31" selection-end-column="41" />
+            <state relative-caret-position="510">
+              <caret line="34" column="42" selection-start-line="34" selection-start-column="42" selection-end-line="34" selection-end-column="42" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -92,8 +91,8 @@
         <option value="$PROJECT_DIR$/tests/conftest.py" />
         <option value="$PROJECT_DIR$/tests/test_combinations_checker.py" />
         <option value="$PROJECT_DIR$/tests/test_riders_combination_storage.py" />
-        <option value="$PROJECT_DIR$/riders_iterator.py" />
         <option value="$PROJECT_DIR$/riders_combination_storage.py" />
+        <option value="$PROJECT_DIR$/riders_iterator.py" />
       </list>
     </option>
   </component>
@@ -164,12 +163,12 @@
       <updated>1580489143147</updated>
       <workItem from="1580489145443" duration="13491000" />
       <workItem from="1580717121812" duration="17150000" />
-      <workItem from="1580808015452" duration="22076000" />
+      <workItem from="1580808015452" duration="22453000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52717000" />
+    <option name="totallyTimeSpent" value="53094000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="53" y="23" width="875" height="1027" extended-state="0" />
@@ -271,6 +270,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tests/test_combinations_checker.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/combinations_checker.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -281,27 +287,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/test_combinations_checker.py">
+    <entry file="file://$PROJECT_DIR$/riders_combination_storage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/riders_iterator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="58" column="31" lean-forward="true" selection-start-line="58" selection-start-column="31" selection-end-line="58" selection-end-column="31" />
+        <state relative-caret-position="510">
+          <caret line="34" column="42" selection-start-line="34" selection-start-column="42" selection-end-line="34" selection-end-column="42" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/riders_combination_storage.py">
+    <entry file="file://$PROJECT_DIR$/riders_iterator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="31" column="41" selection-start-line="31" selection-start-column="41" selection-end-line="31" selection-end-column="41" />
+        <state relative-caret-position="285">
+          <caret line="63" column="31" selection-start-line="63" selection-start-column="31" selection-end-line="63" selection-end-column="31" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
           </folding>
