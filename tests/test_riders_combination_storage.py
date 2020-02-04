@@ -1,27 +1,29 @@
 import sys
-import pytest
 
 import numpy as np
 
 sys.path.append("..")
 
-from riders_combination_storage import RidersCombinationsStorage
+
+def test_rcs_get_combinations_and_set_combinations_simple(rcs):
+
+    assert rcs.get_combinations(("d",), ("c",)).shape == (63, 17)
+    assert rcs.get_combinations(("d", "c"), ("c",)).shape == (84, 17)
 
 
-def test_rcs_get_and_set_simple():
-    rcs = RidersCombinationsStorage({"a": (2, 3), "b": (2, 15), "c": (0, 7), "d": (13, 16), "e": (14, 16)})
+def test_rcs_get_best_combination_and_set_best_combination_simple(rcs):  # TODO: Добавить фикстуру
 
-    array = rcs.get_combinations(("d",), ("c",))
-    ind = [1, 3, 45]
-    new_array = array[ind, :]
-    rcs.set_combinations(("d",), ("c",), ind, new_array)
+    rcs.best_combination = ("c",), np.array([0, 1, 4]), np.array([100, 10, 20])
+    assert rcs.best_combination == (('c',), ((0, 3),), 1)
 
-    assert array.shape == (63, 17)
+    rcs.best_combination = ("d", "c",), np.array([12, 3, 4]), np.array([10, 10, 10])
+    assert rcs.best_combination == (('c',), ((0, 3),), 1)
 
-    array_ = rcs.get_combinations(("d", "c"), ("c",))
-    ind_ = [1, 3, 45]
-    new_array_ = array_[ind_, :]
-    rcs.set_combinations(("d", "c"), ("c",), ind_, new_array_)
+    rcs.best_combination = ("c", "q",), np.array([31, 0, 12]), np.array([20, 20, 20])
+    assert rcs.best_combination == (('c',), ((0, 3),), 1)
 
-    
+    rcs.best_combination = ("c",), np.array([0, 1, 4]), np.array([100, 10, 20])
+    assert rcs.best_combination == (('c',), ((0, 3),), 1)
 
+    rcs.best_combination = ("d", "c", "c"), np.array([1, 2]), np.array([1, 5])
+    assert rcs.best_combination == (('d', 'c', 'c'), ((14, 16), (0, 5), (0, 5)), 1)
