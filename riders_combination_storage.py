@@ -29,7 +29,7 @@ class RidersCombinationsStorage:
     def best_combination(self):
         return (self.__best_combination[0],
                 self._rider2time_borders[self.__best_combination[0]][self.__best_combination[1]],  # лучшая комбинация
-                self.__best_combination[1])  # loss
+                self.__best_combination[2])  # loss
 
     @best_combination.setter
     def best_combination(self, value: Tuple[Tuple, np.ndarray, np.ndarray]):
