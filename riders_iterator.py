@@ -37,7 +37,7 @@ class RidersIterator:
         """
         # если (r1, r2, r3) не подошел  то и (r1, r2, r4, r3) не подойдет !!!
 
-        id = set((*id[0], *id[1]))
+        id = set(id)
         rest_ids = self.__ids - id  # дополнение возможных ключей к текущему
         for i in range(1, len(rest_ids) + 1):
             for comb in itertools.combinations(rest_ids, i):
@@ -48,7 +48,6 @@ class RidersIterator:
         :param id:
         :return:
         """
-        id = (*id[0], *id[1])
         poss_ids = self.__ids - set(id)  # Все возможные продолжения
         for poss_id in poss_ids:
             add_id = set(id)
@@ -62,6 +61,12 @@ class RidersIterator:
     def __call__(self):
         while not self.__combinations_queue.empty():
             pair_id = self.__combinations_queue.get()
+            print(len(pair_id[0]))
+
+
+
+
+            
             # получение матрицы вохможных графиков курьеров для последующей проверки
             intervals_matrix = self.__riders_combinations_storage.get_combinations(*pair_id)
 
@@ -70,12 +75,13 @@ class RidersIterator:
 
             # 2. добавлние в очередь
             new_id = (*pair_id[0], *pair_id[1])
+
             if len(row_indexes) == 0:
                 self.__add_in_checked_combinations(new_id)
             else:
                 self.put_combinations(new_id)
-                # обновть миниум
-                self.__riders_combinations_storage.best_combination = ((*pair_id), row_indexes, loss)
+                # обновить миниум
+                self.__riders_combinations_storage.best_combination = (new_id, row_indexes, loss)
 
             # 3. Обновить словарь
             self.__riders_combinations_storage.set_combinations(pair_id[0], pair_id[1], row_indexes, intervals_matrix)
