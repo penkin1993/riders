@@ -97,37 +97,47 @@ class RidersCombinationsStorage:
 
         return np_rider2time_borders, rider2time_borders
 
-    def get_combinations(self, key1: Tuple, key2: Tuple) -> np.ndarray:
+    def get_combinations(self, id1: Tuple, id2: Tuple) -> np.ndarray:
         """
         Составления комбинаций для доступа по ключу
-        :param key1:
-        :param key2:
+        :param id1:
+        :param id2:
         :return:
         """
-        assert len(key1) | len(key2)
+        assert len(id1) | len(id2)
 
-        if len(key1) == 0:
-            return self._np_rider2time_borders[key2]
+        if len(id1) == 0:
+            return self._np_rider2time_borders[id2]
 
-        if len(key2) == 0:
-            return self._np_rider2time_borders[key1]
+        if len(id2) == 0:
+            return self._np_rider2time_borders[id1]
 
-        intervals1 = self._np_rider2time_borders[key1]
-        intervals2 = self._np_rider2time_borders[key2]
+        intervals1 = self._np_rider2time_borders[id1]
+        intervals2 = self._np_rider2time_borders[id2]
 
         intervals_matrix = (intervals1[:, None, :] + intervals2).reshape(-1, intervals1.shape[1])
         return intervals_matrix
 
-    def set_combinations(self, key1: Tuple, key2: Tuple,
+    def set_combinations(self, id1: Tuple, id2: Tuple,
                          row_indexes: Iterable, intervals_matrix: np.ndarray):
-        new_key = (*key1, *key2)
-        self._np_rider2time_borders[new_key] = intervals_matrix
-        self._rider2time_borders[new_key] = []
+        """
+        :param id1:
+        :param id2:
+        :param row_indexes:
+        :param intervals_matrix:
+        :return:
+        """
+        new_id = (*id1, *id2)
+        if new_id in self._np_rider2time_borders:
+            return
 
-        new_combinations = list(itertools.product(self._rider2time_borders[key1],
-                                                  self._rider2time_borders[key2]))
+        self._np_rider2time_borders[new_id] = intervals_matrix
+        self._rider2time_borders[new_id] = []
 
-        [self._rider2time_borders[new_key].append((*new_combinations[ind][0],
+        new_combinations = list(itertools.product(self._rider2time_borders[id1],
+                                                  self._rider2time_borders[id2]))
+
+        [self._rider2time_borders[new_id].append((*new_combinations[ind][0],
                                                    *new_combinations[ind][1])) for ind in row_indexes]
 
     # TODO: Добавить тесты !!!!
