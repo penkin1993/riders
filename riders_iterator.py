@@ -18,17 +18,17 @@ class RidersIterator:
         :param riders_combinations_storage:
         :param combinations_checker:
         """
-        self.__combination_deque = Queue()  # очередь для обхода riders
+        self.__combinations_queue = Queue()  # очередь для обхода riders
         self.__riders_combinations_storage = riders_combinations_storage
         self.__combinations_checker = combinations_checker
 
         self.__ids = None  # все riders
         self.__checked_combinations = set()  # Наборы, которые нет смысла проверять
-        self.__combination_deque_init()
+        self.__combination_queue_init()
 
-    def __combination_deque_init(self):
-        self.__ids = frozenset(self.__riders_combinations_storage.ids)
-        [(self.__combination_deque.put(id), ()) for id in self.__ids]
+    def __combination_queue_init(self):
+        self.__ids = set(x[0] for x in self.__riders_combinations_storage.ids)
+        [self.__combinations_queue.put(((id, ), ())) for id in self.__ids]
 
     def __add_in_checked_combinations(self, id: Tuple):
         """
@@ -36,33 +36,33 @@ class RidersIterator:
         :return:
         """
         # если (r1, r2, r3) не подошел  то и (r1, r2, r4, r3) не подойдет !!!
-        # self.__checked_combinations.add(id)  # уже есть
-        id = frozenset(id)
+
+        id = set((*id[0], *id[1]))
         rest_ids = self.__ids - id  # дополнение возможных ключей к текущему
-        for i in range(len(rest_ids)):
-            for comb in (itertools.combinations(rest_ids, i)):
-                self.__checked_combinations.add(frozenset(*id, *comb))
-
-
-
-
-
-
-
+        for i in range(1, len(rest_ids) + 1):
+            for comb in itertools.combinations(rest_ids, i):
+                self.__checked_combinations.add(frozenset((*id, *comb)))
 
     def put_combinations(self, id: Tuple):  # добавлеяет элемент в очередь и в self._riders_combinations_storage
         """
         :param id:
         :return:
         """
-        id_ = frozenset(id)
-        poss_ids = self.__ids - id_
+        id_ = (*id[0], *id[1])
+        poss_ids = self.__ids - set(id_)  # Все возможные продолжения
         for poss_id in poss_ids:
-            add_id = poss_id + id_
+            add_id = set(id_)
+            add_id.add(poss_id)
+            add_id = frozenset(add_id)  # TODO: ref
+
+
+
             if add_id not in self.__checked_combinations:
                 # проверка инвариантности порядка (r1, r2, r3) & (r3, r2, r1)
                 self.__checked_combinations.add(add_id)
-                self.__combinations_checker.put((id, poss_id))
+                self.__combinations_queue.put((id, poss_id))
+
+
 
 
 
@@ -72,8 +72,8 @@ class RidersIterator:
 
 
     def __call__(self):
-        while not self.__combination_deque.empty():
-            pair_id = self.__combination_deque.get()
+        while not self.__combinations_queue.empty():
+            pair_id = self.__combinations_queue.get()
             # получение матрицы вохможных графиков курьеров для последующей проверки
             intervals_matrix = self.__riders_combinations_storage.get_combinations(*pair_id)
 
@@ -95,9 +95,6 @@ class RidersIterator:
         return self.__riders_combinations_storage.best_combination
 
     # Дешево сделать мультитпроцессинг на данной очереди ???
-
-
-
 
 
     # TODO: Добавить тесты !!!!

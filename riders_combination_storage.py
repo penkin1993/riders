@@ -152,4 +152,3 @@ class RidersCombinationsStorage:
         [self._rider2time_borders[new_id].append((*new_combinations[ind][0],
                                                    *new_combinations[ind][1])) for ind in row_indexes]
 
-
