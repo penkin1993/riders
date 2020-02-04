@@ -6,7 +6,7 @@ import numpy as np
 sys.path.append("..")
 
 from riders_combination_storage import RidersCombinationsStorage
-from riders_checker import CombinationsChecker
+from riders_iterator import CombinationsChecker
 
 
 @pytest.fixture(scope="module")
