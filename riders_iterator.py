@@ -7,21 +7,21 @@ from typing import Union, Dict, Tuple, Iterable
 from queue import Queue
 
 from riders_combination_storage import RidersCombinationsStorage
-from combinations_checker import CombinationsChecker
+from riders_combinations_checker import RidersCombinationsChecker
 
 
 class RidersIterator:
     """
     """
     def __init__(self, riders_combinations_storage: RidersCombinationsStorage,
-                 combinations_checker: CombinationsChecker):
+                 riders_combinations_checker: RidersCombinationsChecker):
         """
         :param riders_combinations_storage:
-        :param combinations_checker:
+        :param riders_combinations_checker:
         """
         self.__combinations_queue = Queue()  # очередь для обхода riders
         self.__riders_combinations_storage = riders_combinations_storage
-        self.__combinations_checker = combinations_checker
+        self.__riders_combinations_checker = riders_combinations_checker
 
         self.__ids = None  # все riders
         self.__checked_combinations = set()  # Наборы, которые нет смысла проверять
@@ -83,25 +83,27 @@ class RidersIterator:
 
 
     def __call__(self):
+        """
+        :return:
+        """
+        counter = 0
+        t = time.time()
+
         while not self.__combinations_queue.empty():
             pair_id = self.__combinations_queue.get()
+
+            counter += 1
+            if counter % 1000:
+                print(time.time() - t, len(pair_id[0]))
+                t = time.time()
+
             # получение матрицы возможных графиков курьеров для последующей проверки
             intervals_matrix, duplicate_index = self.__riders_combinations_storage.get_combinations(*pair_id)
-            # 1. Проверка данной комбинации и отсеивание тех, которые не подходят
-
-
-
-
-            ts1 = time.time()
-            print(len(pair_id[0]))
-            row_indexes, intervals_matrix, loss = self.__combinations_checker(intervals_matrix)
-            ts2 = time.time()
-            print(ts2 - ts1)
-
-
-
-
-
+            # 1. Проверка комбинаций и отсеивание тех, которые не подходят
+            # ts1 = time.time()
+            row_indexes, intervals_matrix, loss = self.__riders_combinations_checker(intervals_matrix)
+            # ts2 = time.time()
+            # print(ts2 - ts1)
             new_id = (*pair_id[0], *pair_id[1])
 
             if len(row_indexes) == 0:
@@ -109,9 +111,7 @@ class RidersIterator:
             else:
                 self.__put_combinations(new_id)
                 # обновить миниум
-                # print(new_id, row_indexes[np.argmin(loss)], np.argmin(loss))
                 self.__riders_combinations_storage.best_combination = (new_id, row_indexes, loss)
-
                 # 3. Обновить словарь
                 self.__riders_combinations_storage.set_combinations(new_id, duplicate_index, row_indexes,
                                                                     intervals_matrix)

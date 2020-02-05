@@ -4,7 +4,7 @@ import time
 from typing import Tuple, Iterable
 
 
-class CombinationsChecker:
+class RidersCombinationsChecker:
     """
     Класс для проверки комбинаций на требования курьеров по зонам
     """
@@ -20,29 +20,22 @@ class CombinationsChecker:
         :return:
         """
         # assert intervals_matrix.shape[1] == self.__riders_in_zones.shape[0]
-
-        # ts = time.time()
-        # print(1, ts)
+        # ts1 = time.time()
 
         diff = self.__riders_in_zones - intervals_matrix
-        # ts = time.time()
-        # print(2, ts)
+        # ts2 = time.time()
 
         min_diff = np.min(diff, axis=1)
-        # ts = time.time()
-        # print(3, ts)
+        # ts3 = time.time()
 
         row_indexes = np.where(min_diff > 0)[0]
-        # ts = time.time()
-        # print(4, ts)
+        # ts4 = time.time()
 
         checked_intervals_matrix = intervals_matrix[row_indexes, :]
-        # ts = time.time()
-        # print(5, ts)
+        # ts5 = time.time()
 
         loss = -np.sum(checked_intervals_matrix, axis=1)
-        # ts = time.time()
-        # print(6, ts)
+        # ts6 = time.time()
 
         return row_indexes, checked_intervals_matrix, loss  # индексы, проверенная матрца, лосс в каждом случае
 
