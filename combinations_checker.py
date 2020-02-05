@@ -40,7 +40,7 @@ class CombinationsChecker:
         # ts = time.time()
         # print(5, ts)
 
-        loss = np.sum(diff[row_indexes, :], axis=1)
+        loss = -np.sum(checked_intervals_matrix, axis=1)
         # ts = time.time()
         # print(6, ts)
 

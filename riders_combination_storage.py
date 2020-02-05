@@ -139,25 +139,23 @@ class RidersCombinationsStorage:
         intervals_matrix, duplicate_index = np.unique(intervals_matrix, axis=0, return_index=True)
         return intervals_matrix, duplicate_index
 
-    def set_combinations(self, id1: Tuple, id2: Tuple, duplicate_index: np.ndarray,
+    def set_combinations(self, new_id: Tuple, duplicate_index: np.ndarray,
                          row_indexes: np.ndarray, intervals_matrix: np.ndarray):
         """
-        :param id1:
-        :param id2:
+        :param new_id:
         :param duplicate_index:
         :param row_indexes:
         :param intervals_matrix:
         :return:
         """
-        new_id = (*id1, *id2)
         if new_id in self._np_rider2time_borders:
             return
 
         self._np_rider2time_borders[new_id] = intervals_matrix
         self._rider2time_borders[new_id] = []
 
-        new_combinations = np.array(list(itertools.product(self._rider2time_borders[id1],
-                                                           self._rider2time_borders[id2])))
+        new_combinations = np.array(list(itertools.product(self._rider2time_borders[new_id[:-1]],
+                                                           self._rider2time_borders[new_id[-1:]])))
 
         new_combinations = new_combinations[duplicate_index]
 
