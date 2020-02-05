@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2ce4726d-bcc2-4ae9-84c9-39d5b2202eea" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/EDA-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/EDA-checkpoint.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EDA.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/EDA.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/combinations_checker.py" beforeDir="false" afterPath="$PROJECT_DIR$/combinations_checker.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/riders_combination_storage.py" beforeDir="false" afterPath="$PROJECT_DIR$/riders_combination_storage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/riders_iterator.py" beforeDir="false" afterPath="$PROJECT_DIR$/riders_iterator.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -31,8 +27,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/riders_combination_storage.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
-              <caret line="163" lean-forward="true" selection-start-line="163" selection-end-line="163" />
+            <state relative-caret-position="529">
+              <caret line="139" column="48" lean-forward="true" selection-start-line="139" selection-start-column="48" selection-end-line="139" selection-end-column="48" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -160,12 +156,12 @@
       <workItem from="1580717121812" duration="17150000" />
       <workItem from="1580808015452" duration="27130000" />
       <workItem from="1580889130646" duration="10000" />
-      <workItem from="1580900409089" duration="8457000" />
+      <workItem from="1580900409089" duration="8889000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66238000" />
+    <option name="totallyTimeSpent" value="66670000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="53" y="23" width="875" height="1027" extended-state="0" />
@@ -296,8 +292,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/riders_combination_storage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="163" lean-forward="true" selection-start-line="163" selection-end-line="163" />
+        <state relative-caret-position="529">
+          <caret line="139" column="48" lean-forward="true" selection-start-line="139" selection-start-column="48" selection-end-line="139" selection-end-column="48" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
           </folding>
