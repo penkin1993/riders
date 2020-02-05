@@ -1,7 +1,9 @@
 import itertools
-import numpy as np
+import time
 
 from typing import Dict, Tuple, Iterable, List, Hashable, Union, Set
+
+import numpy as np
 
 
 class RidersCombinationsStorage:
@@ -128,8 +130,15 @@ class RidersCombinationsStorage:
         intervals1 = self._np_rider2time_borders[id1]
         intervals2 = self._np_rider2time_borders[id2]
 
+
+
+        # ts = time.time()
+        # print(ts)
+
         intervals_matrix = (intervals1[:, None, :] + intervals2).reshape(-1, intervals1.shape[1])
 
+        # ts = time.time()
+        # print(ts)
 
 
         """
@@ -138,6 +147,7 @@ class RidersCombinationsStorage:
         row_mask = np.append([True], np.any(np.diff(sorted_data, axis=0), 1))
         intervals_matrix = sorted_data[row_mask]
         """
+
 
 
 

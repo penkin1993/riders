@@ -1,5 +1,6 @@
 import itertools
 import numpy as np
+import time
 
 from typing import Union, Dict, Tuple, Iterable
 
@@ -65,15 +66,18 @@ class RidersIterator:
         while not self.__combinations_queue.empty():
             pair_id = self.__combinations_queue.get()
             print(len(pair_id[0]))
-
-
-
-
-            # получение матрицы вохможных графиков курьеров для последующей проверки
+            # получение матрицы возможных графиков курьеров для последующей проверки
             intervals_matrix = self.__riders_combinations_storage.get_combinations(*pair_id)
 
             # 1. Проверка данной комбинации и отсеивание тех, которые не подходят
+            ts = time.time()
+            print(ts)
             row_indexes, intervals_matrix, loss = self.__combinations_checker(intervals_matrix)
+            ts = time.time()
+            print(ts)
+
+
+
 
             # 2. добавлние в очередь
             new_id = (*pair_id[0], *pair_id[1])
@@ -87,7 +91,6 @@ class RidersIterator:
 
                 self.__riders_combinations_storage.best_combination = (new_id, row_indexes, loss)
 
-                # Без отступа ????
                 # 3. Обновить словарь
                 self.__riders_combinations_storage.set_combinations(pair_id[0], pair_id[1], row_indexes, intervals_matrix)
 
