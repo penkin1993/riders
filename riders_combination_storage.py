@@ -106,7 +106,7 @@ class RidersCombinationsStorage:
             # проверка что у данный курьер при ограничения на время сможет работать
             if np_constraints_intervals.shape[0] != 0:
                 np_rider2time_borders[(id_rider,)], rider2time_borders[(id_rider,)] = (
-                    np_constraints_intervals, constraints_intervals)
+                    np_constraints_intervals, np.array(constraints_intervals))
 
         self.__ids = list(rider2time_borders.keys())
 
@@ -158,6 +158,7 @@ class RidersCombinationsStorage:
 
         new_combinations = np.array(list(itertools.product(self._rider2time_borders[id1],
                                                            self._rider2time_borders[id2])))
+
         new_combinations = new_combinations[duplicate_index]
 
         [self._rider2time_borders[new_id].append((*new_combinations[ind][0],

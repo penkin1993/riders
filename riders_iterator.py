@@ -62,17 +62,17 @@ class RidersIterator:
     def __call__(self):
         while not self.__combinations_queue.empty():
             pair_id = self.__combinations_queue.get()
-            print(len(pair_id[0]))
             # получение матрицы возможных графиков курьеров для последующей проверки
-            # intervals_matrix, duplicate_index = self.__riders_combinations_storage.get_combinations(*pair_id)
             intervals_matrix, duplicate_index = self.__riders_combinations_storage.get_combinations(*pair_id)
             # 1. Проверка данной комбинации и отсеивание тех, которые не подходят
             # ts = time.time()
             # print(ts)
+
+            print(len(pair_id[0]))
             row_indexes, intervals_matrix, loss = self.__combinations_checker(intervals_matrix)
             # ts = time.time()
             # print(ts)
-            # 2. добавлние в очередь
+
             new_id = (*pair_id[0], *pair_id[1])
 
             if len(row_indexes) == 0:
@@ -88,7 +88,5 @@ class RidersIterator:
                                                                     row_indexes, intervals_matrix)
 
         return self.__riders_combinations_storage.best_combination
-
-    # Дешево сделать мультитпроцессинг на данной очереди ???
 
     # TODO: Добавить тесты !!!!

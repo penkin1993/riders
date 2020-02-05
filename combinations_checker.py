@@ -32,7 +32,7 @@ class CombinationsChecker:
         # ts = time.time()
         # print(3, ts)
 
-        row_indexes = np.where(min_diff == 0)[0]
+        row_indexes = np.where(min_diff > 0)[0]
         # ts = time.time()
         # print(4, ts)
 
