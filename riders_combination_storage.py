@@ -24,18 +24,19 @@ class RidersCombinationsStorage:
         # Храним границы в self._rider2time_borders:
         # [((id1_border), (id2_border), (id3_border), (id4_border)), (...), (....)].
         self.__best_combination = ((), -1, np.inf)  # TODO: Переписать через property
+        # (new_id, row_indexes, loss)
 
     @property
     def best_combination(self):
         return (self.__best_combination[0],
-                self._rider2time_borders[self.__best_combination[0]][self.__best_combination[1]],  # лучшая комбинация
-                self.__best_combination[2])  # loss
+                self._rider2time_borders[self.__best_combination[0]][self.__best_combination[1][0]],
+                self.__best_combination[2])
 
     @best_combination.setter
     def best_combination(self, value: Tuple[Tuple, np.ndarray, np.ndarray]):
         min_loss = min(value[2])
         if self.__best_combination[2] > min_loss:
-            self.__best_combination = value[0], value[1][np.argmin(value[2])], min_loss
+            self.__best_combination = value[0], [np.argmin(value[2])], min_loss
 
     @property
     def ids(self):
@@ -128,6 +129,26 @@ class RidersCombinationsStorage:
         intervals2 = self._np_rider2time_borders[id2]
 
         intervals_matrix = (intervals1[:, None, :] + intervals2).reshape(-1, intervals1.shape[1])
+
+
+
+        """
+        sorted_idx = np.lexsort(intervals_matrix.T)
+        sorted_data = intervals_matrix[sorted_idx, :]
+        row_mask = np.append([True], np.any(np.diff(sorted_data, axis=0), 1))
+        intervals_matrix = sorted_data[row_mask]
+        """
+
+
+
+
+
+
+
+
+
+
+
         return intervals_matrix
 
     def set_combinations(self, id1: Tuple, id2: Tuple,
@@ -150,5 +171,5 @@ class RidersCombinationsStorage:
                                                   self._rider2time_borders[id2]))
 
         [self._rider2time_borders[new_id].append((*new_combinations[ind][0],
-                                                   *new_combinations[ind][1])) for ind in row_indexes]
+                                                  *new_combinations[ind][1])) for ind in row_indexes]
 
