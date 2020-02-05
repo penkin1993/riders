@@ -44,9 +44,6 @@ class RidersIterator:
             for comb in itertools.combinations(rest_ids, i):
                 self.__checked_combinations.add(frozenset((*id, *comb)))
 
-        # TODO: Странно рабоатет !!!!
-
-
     def put_combinations(self, id: Tuple):  # добавлеяет элемент в очередь и в self._riders_combinations_storage
         """
         :param id:
@@ -67,18 +64,14 @@ class RidersIterator:
             pair_id = self.__combinations_queue.get()
             print(len(pair_id[0]))
             # получение матрицы возможных графиков курьеров для последующей проверки
-            intervals_matrix = self.__riders_combinations_storage.get_combinations(*pair_id)
-
+            # intervals_matrix, duplicate_index = self.__riders_combinations_storage.get_combinations(*pair_id)
+            intervals_matrix, duplicate_index = self.__riders_combinations_storage.get_combinations(*pair_id)
             # 1. Проверка данной комбинации и отсеивание тех, которые не подходят
-            ts = time.time()
-            print(ts)
+            # ts = time.time()
+            # print(ts)
             row_indexes, intervals_matrix, loss = self.__combinations_checker(intervals_matrix)
-            ts = time.time()
-            print(ts)
-
-
-
-
+            # ts = time.time()
+            # print(ts)
             # 2. добавлние в очередь
             new_id = (*pair_id[0], *pair_id[1])
 
@@ -88,15 +81,14 @@ class RidersIterator:
                 self.put_combinations(new_id)
                 # обновить миниум
                 # print(new_id, row_indexes[np.argmin(loss)], np.argmin(loss))
-
                 self.__riders_combinations_storage.best_combination = (new_id, row_indexes, loss)
 
                 # 3. Обновить словарь
-                self.__riders_combinations_storage.set_combinations(pair_id[0], pair_id[1], row_indexes, intervals_matrix)
+                self.__riders_combinations_storage.set_combinations(pair_id[0], pair_id[1], duplicate_index,
+                                                                    row_indexes, intervals_matrix)
 
         return self.__riders_combinations_storage.best_combination
 
     # Дешево сделать мультитпроцессинг на данной очереди ???
-
 
     # TODO: Добавить тесты !!!!

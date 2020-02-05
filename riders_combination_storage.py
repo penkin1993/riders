@@ -112,7 +112,7 @@ class RidersCombinationsStorage:
 
         return np_rider2time_borders, rider2time_borders
 
-    def get_combinations(self, id1: Tuple, id2: Tuple) -> np.ndarray:
+    def get_combinations(self, id1: Tuple, id2: Tuple) -> Tuple[np.ndarray, np.array]:
         """
         Составления комбинаций для доступа по ключу
         :param id1:
@@ -122,50 +122,29 @@ class RidersCombinationsStorage:
         assert len(id1) | len(id2)
 
         if len(id1) == 0:
-            return self._np_rider2time_borders[id2]
+            return self._np_rider2time_borders[id2], np.array([])
 
         if len(id2) == 0:
-            return self._np_rider2time_borders[id1]
+            return self._np_rider2time_borders[id1], np.array([])
 
         intervals1 = self._np_rider2time_borders[id1]
         intervals2 = self._np_rider2time_borders[id2]
-
-
 
         # ts = time.time()
         # print(ts)
 
         intervals_matrix = (intervals1[:, None, :] + intervals2).reshape(-1, intervals1.shape[1])
 
-        # ts = time.time()
-        # print(ts)
+        # # удаление дупликатов
+        intervals_matrix, duplicate_index = np.unique(intervals_matrix, axis=0, return_index=True)
+        return intervals_matrix, duplicate_index
 
-
-        """
-        sorted_idx = np.lexsort(intervals_matrix.T)
-        sorted_data = intervals_matrix[sorted_idx, :]
-        row_mask = np.append([True], np.any(np.diff(sorted_data, axis=0), 1))
-        intervals_matrix = sorted_data[row_mask]
-        """
-
-
-
-
-
-
-
-
-
-
-
-
-        return intervals_matrix
-
-    def set_combinations(self, id1: Tuple, id2: Tuple,
+    def set_combinations(self, id1: Tuple, id2: Tuple, duplicate_index: np.ndarray,
                          row_indexes: np.ndarray, intervals_matrix: np.ndarray):
         """
         :param id1:
         :param id2:
+        :param duplicate_index:
         :param row_indexes:
         :param intervals_matrix:
         :return:
@@ -177,8 +156,9 @@ class RidersCombinationsStorage:
         self._np_rider2time_borders[new_id] = intervals_matrix
         self._rider2time_borders[new_id] = []
 
-        new_combinations = list(itertools.product(self._rider2time_borders[id1],
-                                                  self._rider2time_borders[id2]))
+        new_combinations = np.array(list(itertools.product(self._rider2time_borders[id1],
+                                                           self._rider2time_borders[id2])))
+        new_combinations = new_combinations[duplicate_index]
 
         [self._rider2time_borders[new_id].append((*new_combinations[ind][0],
                                                   *new_combinations[ind][1])) for ind in row_indexes]
