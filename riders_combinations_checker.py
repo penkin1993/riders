@@ -1,12 +1,12 @@
 import numpy as np
 import time
 
-from typing import Tuple, Iterable
+from typing import Tuple
 
 
 class RidersCombinationsChecker:
     """
-    Класс для проверки комбинаций на требования курьеров по зонам
+    Класс для проверки комбинаций на требование курьеров по зоне доставки
     """
     def __init__(self, riders_in_zones: np.ndarray):
         """
@@ -16,8 +16,11 @@ class RidersCombinationsChecker:
 
     def __call__(self, intervals_matrix: np.ndarray) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
         """
-        :param intervals_matrix:
+        :param intervals_matrix: матрица с комбинациями на проверку
         :return:
+        индексы комбинаций, которые прошли проверку
+        матрица комбинаций которые прошли проверку
+        лосс данной комбинации (монотонен по отношению лосса из условия)
         """
         # assert intervals_matrix.shape[1] == self.__riders_in_zones.shape[0]
         # ts1 = time.time()

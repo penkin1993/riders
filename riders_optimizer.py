@@ -29,6 +29,7 @@ class RidersOptimizer:
         :param zone_id:
         :return:
         """
+        print(f" zone_id = {zone_id} optimization processing")
         riders_in_zones = self.__zones.loc[self.__zones.index == zone_id].values[0]
         poss_riders = self.__riders.loc[self.__riders.zone_id == zone_id, ["start_hour", "end_hour"]]
         poss_riders = poss_riders - self.__start_hour
@@ -42,18 +43,18 @@ class RidersOptimizer:
         ri = RidersIterator(riders_combinations_storage=rcs,
                             riders_combinations_checker=rcc)
 
-        res_time, rider_id = ri()
+        rider_id, res_time, _ = ri()
         pd_res = pd.DataFrame(res_time, index=rider_id, columns=["start_hour", "end_hour"])
         pd_res = pd_res + self.__start_hour
         pd_res.index.name = "rider_id"
-        pd["zone_id"] = zone_id
+        pd_res["zone_id"] = zone_id
         return pd_res
 
     def __call__(self):
         """
         :return:
         """
-        return pd.concat([self.count_zone(zone_id) for zone_id in np.unique(self.__zones.index)])
+        return pd.concat([self.count_zone(zone_id) for zone_id in np.unique(self.__zones.index)], axis=0)
 
 
 

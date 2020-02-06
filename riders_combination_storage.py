@@ -12,7 +12,7 @@ class RidersCombinationsStorage:
     TODO: Docstring
     """
     def __init__(self,
-                 id_rider2time: Dict[int, Tuple[int, int]],
+                 id_rider2time: Dict[Hashable, Tuple[int, int]],
                  working_duration: int = 17,
                  working_time_constraint: int = 3):
         """
@@ -136,14 +136,14 @@ class RidersCombinationsStorage:
         intervals_matrix = (intervals1[:, None, :] + intervals2).reshape(-1, intervals1.shape[1])
 
         # # удаление дупликатов
-        intervals_matrix, duplicate_index = np.unique(intervals_matrix, axis=0, return_index=True)
-        return intervals_matrix, duplicate_index
+        intervals_matrix, not_duplicate_index = np.unique(intervals_matrix, axis=0, return_index=True)
+        return intervals_matrix, not_duplicate_index
 
-    def set_combinations(self, new_id: Tuple, duplicate_index: np.ndarray,
+    def set_combinations(self, new_id: Tuple, not_duplicate_index: np.ndarray,
                          row_indexes: np.ndarray, intervals_matrix: np.ndarray):
         """
         :param new_id:
-        :param duplicate_index:
+        :param not_duplicate_index:
         :param row_indexes:
         :param intervals_matrix:
         :return:
@@ -157,7 +157,7 @@ class RidersCombinationsStorage:
         new_combinations = np.array(list(itertools.product(self._rider2time_borders[new_id[:-1]],
                                                            self._rider2time_borders[new_id[-1:]])))
 
-        new_combinations = new_combinations[duplicate_index]
+        new_combinations = new_combinations[not_duplicate_index]
 
         [self._rider2time_borders[new_id].append((*new_combinations[ind][0],
                                                   *new_combinations[ind][1])) for ind in row_indexes]

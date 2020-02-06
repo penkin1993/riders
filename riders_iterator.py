@@ -1,10 +1,15 @@
 import itertools
-import numpy as np
 import time
 
-from typing import Union, Dict, Tuple, Iterable
+import numpy as np
+from joblib import Parallel, delayed
+from multiprocessing import pool
+import multiprocessing
+
 
 from queue import Queue
+from typing import Union, Dict, Tuple, Iterable
+
 
 from riders_combination_storage import RidersCombinationsStorage
 from riders_combinations_checker import RidersCombinationsChecker
@@ -59,51 +64,82 @@ class RidersIterator:
                 self.__checked_combinations.add(add_id)
                 self.__combinations_queue.put((id, (poss_id, )))
 
-    def iter(self, row_indexes, new_id, loss, duplicate_index, intervals_matrix):
+    def __multi_jobs_running(self, n_jobs):
         """
+        :param n_jobs:
+        :return:
+        """
+        iterator_pair = [self.__combinations_queue.get() for _ in range(n_jobs)
+                         if not self.__combinations_queue.empty()]
+        iterator_matrix, iterator_dup_index = [], []
+
+        for pair_id in iterator_pair:
+            intervals_matrix, not_duplicate_index = self.__riders_combinations_storage.get_combinations(*pair_id)
+            iterator_matrix.append(intervals_matrix)
+            iterator_dup_index.append(not_duplicate_index)
+
+        # comb_check = Parallel(n_jobs=n_jobs)(delayed(self.__riders_combinations_checker)(x) for x in iterator_matrix)
+
+        with multiprocessing.Pool(processes=n_jobs) as pool:
+            comb_check = pool.starmap(self.__riders_combinations_checker, iterable=((x,) for x in iterator_matrix))
+
+        return iterator_pair, comb_check, iterator_dup_index
+
+    def __all_update(self, pair_id, row_indexes, intervals_matrix, loss, not_duplicate_index):
+        """
+        :param pair_id:
         :param row_indexes:
-        :param new_id:
         :param loss:
-        :param duplicate_index:
+        :param not_duplicate_index:
         :param intervals_matrix:
         :return:
         """
-        # получить 10 ключей и запустить на них функцию
+        new_id = (*pair_id[0], *pair_id[1])
+
         if len(row_indexes) == 0:
             self.__add_in_checked_combinations(new_id)
         else:
             self.__put_combinations(new_id)
             # обновить миниум
-            # print(new_id, row_indexes[np.argmin(loss)], np.argmin(loss))
             self.__riders_combinations_storage.best_combination = (new_id, row_indexes, loss)
+            # 3. Обновить словарь
+            self.__riders_combinations_storage.set_combinations(new_id, not_duplicate_index, row_indexes,
+                                                                intervals_matrix)
 
-
-
-
-
-
-    def __call__(self):
+    def __call__(self, n_jobs=10):
         """
         :return:
         """
-        counter = 0
-        t = time.time()
+        # counter = 0
+        # t = time.time()
+
+        # counter += 1
+        # if not counter % 10:
+        #     print(time.time() - t, len(pair_id[0]))
+        #     t = time.time()
 
         while not self.__combinations_queue.empty():
+            iterator_pair, comb_check, iterator_dup_index = self.__multi_jobs_running(n_jobs)
+
+            for i in range(len(iterator_pair)):
+                self.__all_update(iterator_pair[i], *comb_check[i], iterator_dup_index[i])
+
+
+
+
+
+
+            """
             pair_id = self.__combinations_queue.get()
-
-            counter += 1
-            if counter % 1000:
-                print(time.time() - t, len(pair_id[0]))
-                t = time.time()
-
             # получение матрицы возможных графиков курьеров для последующей проверки
-            intervals_matrix, duplicate_index = self.__riders_combinations_storage.get_combinations(*pair_id)
+            intervals_matrix, not_duplicate_index = self.__riders_combinations_storage.get_combinations(*pair_id)
+
             # 1. Проверка комбинаций и отсеивание тех, которые не подходят
             # ts1 = time.time()
             row_indexes, intervals_matrix, loss = self.__riders_combinations_checker(intervals_matrix)
             # ts2 = time.time()
             # print(ts2 - ts1)
+
             new_id = (*pair_id[0], *pair_id[1])
 
             if len(row_indexes) == 0:
@@ -113,8 +149,11 @@ class RidersIterator:
                 # обновить миниум
                 self.__riders_combinations_storage.best_combination = (new_id, row_indexes, loss)
                 # 3. Обновить словарь
-                self.__riders_combinations_storage.set_combinations(new_id, duplicate_index, row_indexes,
+                self.__riders_combinations_storage.set_combinations(new_id, not_duplicate_index, row_indexes,
                                                                     intervals_matrix)
+            """
+                
+
 
         return self.__riders_combinations_storage.best_combination
 
