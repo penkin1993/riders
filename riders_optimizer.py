@@ -1,9 +1,7 @@
-import itertools
-
 import pandas as pd
 import numpy as np
 
-from typing import Union, Dict, Tuple, Iterable, Hashable
+from typing import Hashable
 
 from riders_combinations_checker import RidersCombinationsChecker
 from riders_combination_storage import RidersCombinationsStorage

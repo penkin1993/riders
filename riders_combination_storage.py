@@ -1,15 +1,14 @@
 import itertools
 import time
 
-from typing import Dict, Tuple, Iterable, List, Hashable, Union, Set
+from typing import Dict, Tuple, Iterable, Hashable
 
 import numpy as np
 
 
 class RidersCombinationsStorage:
-    #  Этот класс скорее самой структуры, которая хранить комбинации
     """
-    TODO: Docstring
+    Класс для хранения всей информации о комбинациях времени работы курьеров
     """
     def __init__(self,
                  id_rider2time: Dict[Hashable, Tuple[int, int]],
@@ -25,7 +24,7 @@ class RidersCombinationsStorage:
                                                                                                working_time_constraint)
         # Храним границы в self._rider2time_borders:
         # [((id1_border), (id2_border), (id3_border), (id4_border)), (...), (....)].
-        self.__best_combination = ((), -1, np.inf)  # TODO: Переписать через property
+        self.__best_combination = ((), -1, np.inf)
         # (new_id, row_indexes, loss)
 
     @property
@@ -103,7 +102,7 @@ class RidersCombinationsStorage:
             np_constraints_intervals, constraints_intervals = (self.__add_rider(*id_rider2time[id_rider],
                                                                                 working_duration,
                                                                                 working_time_constraint))
-            # проверка что у данный курьер при ограничения на время сможет работать
+            # проверка что данный курьер при ограничения на время сможет работать
             if np_constraints_intervals.shape[0] != 0:
                 np_rider2time_borders[(id_rider,)], rider2time_borders[(id_rider,)] = (
                     np_constraints_intervals, np.array(constraints_intervals))
@@ -135,7 +134,7 @@ class RidersCombinationsStorage:
 
         intervals_matrix = (intervals1[:, None, :] + intervals2).reshape(-1, intervals1.shape[1])
 
-        # # удаление дупликатов
+        # # удаление дубликатов
         intervals_matrix, not_duplicate_index = np.unique(intervals_matrix, axis=0, return_index=True)
         return intervals_matrix, not_duplicate_index
 
